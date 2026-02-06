@@ -100,8 +100,6 @@ Testing your local development site on different browsers:
 
 **Use case**: You're developing a feature and need to check if it works on Safari, but you're on Windows.
 
-**Pro tip**: If you find a visual bug, use the **Visual Issue Fix** skill to get browser-specific fixes.
-
 ---
 
 ### 📱 Mobile App Testing
@@ -122,20 +120,29 @@ Test your mobile app on real devices:
 
 ### 🧪 Running Automated Tests
 
-Run your existing test suite on BrowserStack:
+Run your existing test suite on BrowserStack (uses **Automate Test Setup** and **App Automate Test Setup** skills):
 
+**Web tests:**
 ```
 💬 "Setup my Playwright tests to run on BrowserStack"
 💬 "Run my tests on Chrome, Firefox, and Safari"
-💬 "My test suite failed on BrowserStack session abc123, help me debug"
+💬 "Show me available browsers on Automate"
+```
+
+**Mobile app tests:**
+```
+💬 "Upload my app to BrowserStack"
+💬 "Set up Appium tests for iPhone 15 and Galaxy S24"
+💬 "Run my app tests on top 10 Android devices"
 ```
 
 **Workflow example**:
 1. You: *"Setup my Playwright tests to run on BrowserStack"*
-2. Cursor updates your config files automatically
+2. Cursor configures your test framework with BrowserStack capabilities
 3. You: *"Run my tests on Chrome and Edge"*
-4. BrowserStack runs your tests, Cursor shows you results
-5. If tests fail: *"Help me debug the failures"*
+4. BrowserStack runs your tests in parallel
+5. View results, session recordings, and logs
+6. If tests fail: *"Help me debug the failures"*
 
 ---
 
@@ -238,41 +245,76 @@ The plugin includes specialized workflows and AI agents to streamline common tes
 
 ---
 
-#### Visual Issue Fix
-**What it does**: Captures screenshots across browsers, identifies visual bugs, and provides CSS fixes.
+#### Automate Test Setup
+**What it does**: Sets up and runs automated web tests on BrowserStack Automate across multiple browsers and OS combinations.
 
-**When to use**: Cross-browser layout issues, responsive design bugs, visual regressions.
+**When to use**: Running Selenium/Playwright/Cypress tests, CI/CD integration, cross-browser testing.
 
 **Sample commands**:
 ```
-💬 "My navigation is broken in Safari, help me fix it"
-💬 "Compare how my homepage looks on Chrome vs Firefox"
-💬 "Fix the layout issue on Safari for localhost:3000"
+💬 "Set up Playwright tests for BrowserStack Automate"
+💬 "Run my tests on Chrome 120, Firefox 122, and Safari 17"
+💬 "Show me available browsers on BrowserStack Automate"
+💬 "Run checkout.test.js in parallel on 5 browsers"
 ```
 
 **Workflow**:
-1. Opens page on target browsers
-2. Captures screenshots for comparison
-3. Identifies visual differences
-4. Provides browser-specific CSS fixes
-5. Validates fix doesn't break other browsers
+1. Lists available browsers and OS combinations
+2. Helps configure your test framework (Selenium/Playwright/Cypress)
+3. Sets browser capabilities for target platforms
+4. Runs tests on BrowserStack infrastructure
+5. Displays results, logs, and session recordings
 
-**Example fix output**:
-```css
-/* Safari flexbox gap issue fix */
-/* Before */
-.container {
-  display: flex;
-  gap: 20px;
+**Example output**:
+```json
+// Browser capabilities configured
+{
+  "browserName": "Chrome",
+  "browserVersion": "120",
+  "os": "Windows",
+  "osVersion": "11"
 }
 
-/* After - Works everywhere */
-.container {
-  display: flex;
+✓ Tests completed on 3 browsers
+✓ Session recordings available
+```
+
+---
+
+#### App Automate Test Setup
+**What it does**: Sets up and runs automated mobile app tests on BrowserStack App Automate with real iOS and Android devices.
+
+**When to use**: Testing mobile apps with Appium/XCUITest/Espresso, device matrix testing, mobile CI/CD.
+
+**Sample commands**:
+```
+💬 "Upload my app to BrowserStack App Automate"
+💬 "Set up Appium tests for iPhone 15 Pro and Galaxy S24"
+💬 "Show me available Android devices on App Automate"
+💬 "Run login.test.js on top 10 iOS and Android devices"
+```
+
+**Workflow**:
+1. Uploads your .ipa or .apk file to BrowserStack
+2. Lists available iOS and Android devices
+3. Helps configure test framework (Appium/XCUITest/Espresso)
+4. Sets device capabilities for target devices
+5. Runs tests on real devices
+6. Provides app logs, crash reports, and session recordings
+
+**Example output**:
+```json
+// Device capabilities configured
+{
+  "deviceName": "iPhone 15 Pro",
+  "platformName": "iOS",
+  "platformVersion": "17",
+  "app": "bs://abc123xyz"
 }
-.container > * {
-  margin-right: 20px;
-}
+
+✓ App uploaded: bs://abc123xyz
+✓ Tests completed on 2 devices
+✓ Video recordings available
 ```
 
 ---
