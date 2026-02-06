@@ -95,9 +95,12 @@ Testing your local development site on different browsers:
 💬 "Open my website running on localhost:3000 on Safari 17"
 💬 "Test localhost:8080 on the latest Chrome on Windows 11"
 💬 "Open my site on Firefox on macOS"
+💬 "Take a screenshot of this page"
 ```
 
 **Use case**: You're developing a feature and need to check if it works on Safari, but you're on Windows.
+
+**Pro tip**: If you find a visual bug, use the **Visual Issue Fix** skill to get browser-specific fixes.
 
 ---
 
@@ -138,15 +141,17 @@ Run your existing test suite on BrowserStack:
 
 ### ♿ Accessibility Scanning
 
-Catch accessibility issues before production:
+Catch accessibility issues before production (uses **Accessibility Fix** skill):
 
 ```
 💬 "Scan accessibility issues on localhost:3000"
-💬 "What WCAG 2.1 issues are on my checkout page?"
-💬 "Fix the color contrast issues on my form"
+💬 "Fix accessibility problems on my checkout page"
+💬 "Check WCAG 2.1 AA compliance for my signup form"
 ```
 
 **Use case**: You want to ensure your signup form is accessible before deploying.
+
+**What happens**: The skill scans your page, identifies violations, provides specific code fixes, and verifies after you implement them.
 
 ---
 
@@ -172,19 +177,154 @@ Organize and track your testing:
 
 ### 🤖 AI-Powered Testing
 
-**Generate test cases from requirements:**
+**Generate test cases from requirements** (uses **Test Case Generator** agent):
 ```
-💬 "Generate test cases from my PRD at /docs/login-feature.pdf"
+💬 @test-case-generator
+   [Attach your PRD file]
+   "Generate test cases for project PR-12345"
+   
+💬 @test-case-generator
+   "Create test cases for checkout flow with credit card and PayPal"
+   "Add to project PR-67890"
 ```
 
 **Auto-heal flaky tests:**
 ```
 💬 "My login test keeps failing because the button selector changed. Fix it with self-healing."
+💬 "Get self-healed selectors for session session_abc123"
 ```
 
 **Convert manual tests to automation:**
 ```
 💬 "Convert my manual test case TC-45 into a Playwright script"
+```
+
+---
+
+## Built-in Skills & Agents
+
+The plugin includes specialized workflows and AI agents to streamline common testing tasks.
+
+### 🔧 Skills (Multi-Step Workflows)
+
+#### Accessibility Fix
+**What it does**: Scans your page for WCAG violations, identifies issues, and provides code fixes.
+
+**When to use**: Before deployment, fixing accessibility bugs, ensuring compliance.
+
+**Sample commands**:
+```
+💬 "Scan accessibility issues on localhost:3000"
+💬 "Fix the accessibility problems on my checkout page"
+💬 "Check WCAG 2.1 AA compliance for localhost:8080/signup"
+```
+
+**Workflow**:
+1. Runs accessibility scan on your page
+2. Categorizes issues (Critical/High/Medium)
+3. Provides specific code fixes for each issue
+4. Re-scans after you implement fixes to verify
+
+**Example fix output**:
+```html
+<!-- Missing form label fix -->
+<!-- Before -->
+<input type="email" placeholder="Email">
+
+<!-- After -->
+<label for="email">Email Address</label>
+<input type="email" id="email" aria-required="true">
+```
+
+---
+
+#### Visual Issue Fix
+**What it does**: Captures screenshots across browsers, identifies visual bugs, and provides CSS fixes.
+
+**When to use**: Cross-browser layout issues, responsive design bugs, visual regressions.
+
+**Sample commands**:
+```
+💬 "My navigation is broken in Safari, help me fix it"
+💬 "Compare how my homepage looks on Chrome vs Firefox"
+💬 "Fix the layout issue on Safari for localhost:3000"
+```
+
+**Workflow**:
+1. Opens page on target browsers
+2. Captures screenshots for comparison
+3. Identifies visual differences
+4. Provides browser-specific CSS fixes
+5. Validates fix doesn't break other browsers
+
+**Example fix output**:
+```css
+/* Safari flexbox gap issue fix */
+/* Before */
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+/* After - Works everywhere */
+.container {
+  display: flex;
+}
+.container > * {
+  margin-right: 20px;
+}
+```
+
+---
+
+### 🤖 AI Agent
+
+#### Test Case Generator
+**What it does**: Generates comprehensive test cases from requirements, user stories, or PRD documents using BrowserStack AI.
+
+**When to use**: Planning new features, creating test suites, converting requirements to test cases.
+
+**Sample commands**:
+```
+💬 @test-case-generator
+   [Add your PRD file or requirements document to context]
+   "Generate test cases for Test Management project PR-12345"
+
+💬 @test-case-generator
+   "Create test cases for a login feature with email and Google OAuth"
+   "Add them to project PR-54321"
+```
+
+**Workflow**:
+1. Invoke agent with `@test-case-generator`
+2. Add requirements file to context (or describe feature)
+3. Provide your Test Management project ID (format: `PR-12345`)
+4. Agent generates structured test cases
+5. Test cases are added to your BrowserStack Test Management project
+
+**What you get**:
+- Test case title and description
+- Priority level (Critical/High/Medium/Low)
+- Preconditions
+- Step-by-step test steps
+- Expected results
+- Appropriate tags (@smoke, @regression, @p0, etc.)
+
+**Example interaction**:
+```
+You: @test-case-generator
+     [Attach: login-feature-spec.pdf]
+     "Generate test cases for project PR-12345"
+
+Agent: I'll generate comprehensive test cases for your login feature.
+
+       Test cases generated:
+       ✓ TC-001: Login - Valid Credentials - Success (@smoke, @p0)
+       ✓ TC-002: Login - Invalid Password - Error (@regression, @p1)
+       ✓ TC-003: Login - Google OAuth - Success (@smoke, @p0)
+       ✓ TC-004: Login - Empty Fields - Validation (@regression, @p2)
+       
+       Added 4 test cases to Test Management project PR-12345
 ```
 
 ---
