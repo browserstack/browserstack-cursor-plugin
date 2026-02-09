@@ -1,9 +1,9 @@
 ---
-name: automate-test-setup
-description: Set up and run automated web tests on BrowserStack Automate using setupBrowserStackAutomateTests MCP tool. Use for cross-browser testing with Selenium/Playwright/Cypress.
+name: run-web-tests-on-browserstack
+description: Run automated web tests on BrowserStack Automate using setupBrowserStackAutomateTests MCP tool. Use for cross-browser testing with Selenium/Playwright/Cypress.
 ---
 
-# Automate Test Setup Workflow
+# Run Web Tests on BrowserStack
 
 ## When to Use
 

@@ -1,9 +1,9 @@
 ---
-name: app-automate-test-setup
-description: Set up and run automated mobile app tests on BrowserStack App Automate using runAppTestsOnBrowserStack and takeAppScreenshot MCP tools. Use for Appium/XCUITest/Espresso testing.
+name: run-mobile-tests-on-browserstack
+description: Run automated mobile app tests on BrowserStack App Automate using runAppTestsOnBrowserStack and takeAppScreenshot MCP tools. Use for Appium/XCUITest/Espresso testing.
 ---
 
-# App Automate Test Setup Workflow
+# Run Mobile Tests on BrowserStack
 
 ## When to Use
 

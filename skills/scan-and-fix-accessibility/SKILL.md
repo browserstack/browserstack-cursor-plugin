@@ -1,9 +1,9 @@
 ---
-name: accessibility-fix
+name: scan-and-fix-accessibility
 description: Scan webpage for accessibility issues using startAccessibilityScan MCP tool, identify WCAG violations, and generate code fixes. Use for WCAG compliance and accessibility bug fixes.
 ---
 
-# Accessibility Fix Workflow
+# Scan and Fix Accessibility
 
 ## When to Use
 
