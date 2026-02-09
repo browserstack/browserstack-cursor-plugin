@@ -1,450 +1,244 @@
 # BrowserStack for Cursor
 
-Test websites and mobile apps on 3,500+ real devices and browsers—directly from Cursor using natural language. No context switching and very easy to setup.
+Access BrowserStack's complete testing platform directly from Cursor using natural language. Test on 3,500+ real devices and browsers, run automated tests, scan for accessibility issues, and generate test cases from requirements—all without leaving your IDE.
 
-## What You Can Do
+## Getting Started
 
-**Test anywhere, from anywhere**
-- Open your localhost app on an iPhone 15 Pro Max
-- Test your website on Safari 17 without owning a Mac
-- Debug app crashes on Android 14 in real-time
-- Run Playwright tests on 50+ browser/OS combinations
+### Prerequisites
 
-**Stay in your flow**
-- Ask in plain English: *"Test my site on Edge"*
-- Get instant access to real devices
-- Debug failed tests without leaving Cursor
-- Fix accessibility issues with AI suggestions
+- Node.js 18 or higher ([download](https://nodejs.org/en/download))
+- BrowserStack account ([sign up for free trial](https://www.browserstack.com/users/sign_up))
 
-**Automate everything**
-- Run test suites on BrowserStack infrastructure
-- Generate test cases from product requirements
-- Auto-heal flaky tests with AI
-- Manage test cases and track results
+### Installation
 
-## Setup
+1. **Get your BrowserStack credentials** from [Account Settings](https://www.browserstack.com/accounts/profile/details)
 
-### Step 1: Install Node.js
+2. **Configure MCP settings in Cursor**:
+   - Open Cursor Settings
+   - Navigate to MCP configuration
+   - Add BrowserStack credentials:
 
-You need Node.js version 18 or higher (we recommend v22.15.0 LTS).
-
-Check your version:
-```bash
-node --version
-```
-
-If you need to install or update:
-- **macOS**: `brew update && brew upgrade node` or [download here](https://nodejs.org/en/download)
-- **Windows**: Download from [nodejs.org](https://nodejs.org/en/download)
-
-### Step 2: Get BrowserStack Credentials
-
-1. **Sign up** at [browserstack.com/users/sign_up](https://www.browserstack.com/users/sign_up)
-   - Free trial available, no credit card required
-   - Open source projects get free access
-
-2. **Get your credentials** from [Account Settings](https://www.browserstack.com/accounts/profile/details)
-   - You'll need your `Username` and `Access Key`
-   - Keep these handy for the next step
-
-### Step 3: Install the Plugin
-
-1. **Install from Cursor Marketplace** (or manually)
-
-2. **Add your credentials** to your environment:
-
-   **On macOS/Linux:**
-   ```bash
-   # Open your shell profile
-   nano ~/.zshrc  # or ~/.bashrc if you use bash
-   
-   # Add these lines at the end (replace with your actual credentials)
-   export BROWSERSTACK_USERNAME="your_username_here"
-   export BROWSERSTACK_ACCESS_KEY="your_access_key_here"
-   
-   # Save and reload
-   source ~/.zshrc
+   ```json
+   {
+     "mcpServers": {
+       "browserstack": {
+         "command": "npx",
+         "args": ["-y", "@browserstack/mcp-server@latest"],
+         "env": {
+           "BROWSERSTACK_USERNAME": "${BROWSERSTACK_USERNAME}",
+           "BROWSERSTACK_ACCESS_KEY": "${BROWSERSTACK_ACCESS_KEY}"
+         }
+       }
+     }
+   }
    ```
 
-   **On Windows (PowerShell):**
-   ```powershell
-   # Open PowerShell profile
-   notepad $PROFILE
-   
-   # Add these lines
-   $env:BROWSERSTACK_USERNAME="your_username_here"
-   $env:BROWSERSTACK_ACCESS_KEY="your_access_key_here"
-   ```
-
-3. **Restart Cursor** to activate the plugin
-
-4. **Verify installation** by asking Cursor:
+3. **Restart Cursor** and verify:
    ```
    "Open google.com on Chrome"
    ```
 
-✅ That's it! You're ready to test.
+## What's Included
 
-## Common Workflows
+### Skills
 
-### 🚀 Quick Manual Testing
+- **scan-and-fix-accessibility** - Scan webpages for WCAG violations and get code fixes
+- **run-web-tests-on-browserstack** - Run Selenium/Playwright/Cypress tests on multiple browsers
+- **run-mobile-tests-on-browserstack** - Run Appium/XCUITest/Espresso tests on real devices
 
-Testing your local development site on different browsers:
+### Agents
 
-```
-💬 "Open my website running on localhost:3000 on Safari 17"
-💬 "Test localhost:8080 on the latest Chrome on Windows 11"
-💬 "Open my site on Firefox on macOS"
-💬 "Take a screenshot of this page"
-```
+- **test-case-generator** - Generate test cases from PRD documents using AI
 
-**Use case**: You're developing a feature and need to check if it works on Safari, but you're on Windows.
-
-**Pro tip**: If you find a visual bug, use the **Visual Issue Fix** skill to get browser-specific fixes.
-
----
-
-### 📱 Mobile App Testing
-
-Test your mobile app on real devices:
-
-```
-💬 "Open my app on iPhone 15 Pro Max"
-   (Cursor will ask for your .ipa or .apk file path)
-
-💬 "Test my app on Galaxy S24 with Android 14"
-💬 "My app crashes on iOS 17 when I tap the login button, help me debug"
-```
-
-**Use case**: You don't have physical access to an iPhone 15 Pro Max but need to verify the login flow works.
-
----
-
-### 🧪 Running Automated Tests
-
-Run your existing test suite on BrowserStack:
-
-```
-💬 "Setup my Playwright tests to run on BrowserStack"
-💬 "Run my tests on Chrome, Firefox, and Safari"
-💬 "My test suite failed on BrowserStack session abc123, help me debug"
-```
-
-**Workflow example**:
-1. You: *"Setup my Playwright tests to run on BrowserStack"*
-2. Cursor updates your config files automatically
-3. You: *"Run my tests on Chrome and Edge"*
-4. BrowserStack runs your tests, Cursor shows you results
-5. If tests fail: *"Help me debug the failures"*
-
----
-
-### ♿ Accessibility Scanning
-
-Catch accessibility issues before production (uses **Accessibility Fix** skill):
-
-```
-💬 "Scan accessibility issues on localhost:3000"
-💬 "Fix accessibility problems on my checkout page"
-💬 "Check WCAG 2.1 AA compliance for my signup form"
-```
-
-**Use case**: You want to ensure your signup form is accessible before deploying.
-
-**What happens**: The skill scans your page, identifies violations, provides specific code fixes, and verifies after you implement them.
-
----
-
-### 📋 Test Case Management
-
-Organize and track your testing:
-
-```
-💬 "Create a Test Management project called 'Payment Flow'"
-💬 "Add a test case: Verify credit card payment with invalid CVV"
-💬 "List all high priority test cases in Payment Flow"
-💬 "Create a test run for smoke tests"
-💬 "Mark test case TC-123 as passed"
-```
-
-**Workflow example**:
-1. Create project structure
-2. Add test cases as you develop features
-3. Create test runs before releases
-4. Track results and generate reports
-
----
-
-### 🤖 AI-Powered Testing
-
-**Generate test cases from requirements** (uses **Test Case Generator** agent):
-```
-💬 @test-case-generator
-   [Attach your PRD file]
-   "Generate test cases for project PR-12345"
-   
-💬 @test-case-generator
-   "Create test cases for checkout flow with credit card and PayPal"
-   "Add to project PR-67890"
-```
-
-**Auto-heal flaky tests:**
-```
-💬 "My login test keeps failing because the button selector changed. Fix it with self-healing."
-💬 "Get self-healed selectors for session session_abc123"
-```
-
-**Convert manual tests to automation:**
-```
-💬 "Convert my manual test case TC-45 into a Playwright script"
-```
-
----
-
-## Built-in Skills & Agents
-
-The plugin includes specialized workflows and AI agents to streamline common testing tasks.
-
-### 🔧 Skills (Multi-Step Workflows)
-
-#### Accessibility Fix
-**What it does**: Scans your page for WCAG violations, identifies issues, and provides code fixes.
-
-**When to use**: Before deployment, fixing accessibility bugs, ensuring compliance.
-
-**Sample commands**:
-```
-💬 "Scan accessibility issues on localhost:3000"
-💬 "Fix the accessibility problems on my checkout page"
-💬 "Check WCAG 2.1 AA compliance for localhost:8080/signup"
-```
-
-**Workflow**:
-1. Runs accessibility scan on your page
-2. Categorizes issues (Critical/High/Medium)
-3. Provides specific code fixes for each issue
-4. Re-scans after you implement fixes to verify
-
-**Example fix output**:
-```html
-<!-- Missing form label fix -->
-<!-- Before -->
-<input type="email" placeholder="Email">
-
-<!-- After -->
-<label for="email">Email Address</label>
-<input type="email" id="email" aria-required="true">
-```
-
----
-
-#### Visual Issue Fix
-**What it does**: Captures screenshots across browsers, identifies visual bugs, and provides CSS fixes.
-
-**When to use**: Cross-browser layout issues, responsive design bugs, visual regressions.
-
-**Sample commands**:
-```
-💬 "My navigation is broken in Safari, help me fix it"
-💬 "Compare how my homepage looks on Chrome vs Firefox"
-💬 "Fix the layout issue on Safari for localhost:3000"
-```
-
-**Workflow**:
-1. Opens page on target browsers
-2. Captures screenshots for comparison
-3. Identifies visual differences
-4. Provides browser-specific CSS fixes
-5. Validates fix doesn't break other browsers
-
-**Example fix output**:
-```css
-/* Safari flexbox gap issue fix */
-/* Before */
-.container {
-  display: flex;
-  gap: 20px;
-}
-
-/* After - Works everywhere */
-.container {
-  display: flex;
-}
-.container > * {
-  margin-right: 20px;
-}
-```
-
----
-
-### 🤖 AI Agent
-
-#### Test Case Generator
-**What it does**: Generates comprehensive test cases from requirements, user stories, or PRD documents using BrowserStack AI.
-
-**When to use**: Planning new features, creating test suites, converting requirements to test cases.
-
-**Sample commands**:
-```
-💬 @test-case-generator
-   [Add your PRD file or requirements document to context]
-   "Generate test cases for Test Management project PR-12345"
-
-💬 @test-case-generator
-   "Create test cases for a login feature with email and Google OAuth"
-   "Add them to project PR-54321"
-```
-
-**Workflow**:
-1. Invoke agent with `@test-case-generator`
-2. Add requirements file to context (or describe feature)
-3. Provide your Test Management project ID (format: `PR-12345`)
-4. Agent generates structured test cases
-5. Test cases are added to your BrowserStack Test Management project
-
-**What you get**:
-- Test case title and description
-- Priority level (Critical/High/Medium/Low)
-- Preconditions
-- Step-by-step test steps
-- Expected results
-- Appropriate tags (@smoke, @regression, @p0, etc.)
-
-**Example interaction**:
-```
-You: @test-case-generator
-     [Attach: login-feature-spec.pdf]
-     "Generate test cases for project PR-12345"
-
-Agent: I'll generate comprehensive test cases for your login feature.
-
-       Test cases generated:
-       ✓ TC-001: Login - Valid Credentials - Success (@smoke, @p0)
-       ✓ TC-002: Login - Invalid Password - Error (@regression, @p1)
-       ✓ TC-003: Login - Google OAuth - Success (@smoke, @p0)
-       ✓ TC-004: Login - Empty Fields - Validation (@regression, @p2)
-       
-       Added 4 test cases to Test Management project PR-12345
-```
-
----
-
-## Real Examples
-
-### Example 1: Cross-Browser Bug Fix
-
-**Scenario**: Users report a broken layout on Safari.
-
-```
-💬 "Open localhost:3000/dashboard on Safari 17 on macOS Sonoma"
-   → BrowserStack opens a real Safari session
-   → You see the layout is indeed broken
-   
-💬 "Take a screenshot of this page"
-   → Screenshot saved to your project
-   
-💬 "Now open the same page on Chrome to compare"
-   → Opens Chrome session
-   → Layout works fine
-   
-💬 "What CSS properties might cause this Safari-specific issue?"
-   → Cursor analyzes your code and suggests the problem
-```
-
-### Example 2: Mobile App Crash Debug
-
-**Scenario**: Your iOS app crashes on launch for some users.
-
-```
-💬 "Open my app on iPhone 14 with iOS 16"
-   (Provide path: /Users/me/builds/app-v2.1.ipa)
-   → App launches successfully
-   
-💬 "Try on iPhone 15 with iOS 17"
-   → App crashes!
-   
-💬 "Get the crash logs for this session"
-   → Cursor retrieves logs
-   
-💬 "Analyze these crash logs and suggest a fix"
-   → Cursor identifies the issue and suggests code changes
-```
-
-### Example 3: Automated Test Failure Investigation
-
-**Scenario**: Your CI pipeline shows test failures on BrowserStack.
-
-```
-💬 "My Automate build 'feature-branch-123' has 3 failed tests. What went wrong?"
-   → Cursor fetches error logs and screenshots
-   
-💬 "Show me screenshots from the failed tests"
-   → Screenshots displayed
-   
-💬 "The login button selector seems wrong. Update my test file with the correct selector."
-   → Cursor updates your test file
-   
-💬 "Re-run the tests"
-   → Tests pass ✅
-```
-
-## What's Available
-
-**Manual Testing**
-- Test websites on any browser/OS combination
-- Test mobile apps on 3,500+ real devices
-- Access localhost from cloud devices (no deployment needed)
-
-**Automated Testing**  
-- Run Playwright, Selenium, Cypress, and more
-- Parallel test execution across browsers
-- Get screenshots, videos, and logs automatically
+### MCP Tools (20 Available)
 
 **Test Management**
-- Create and organize test cases
-- Track test execution and results
-- Generate test reports
+- `createProjectOrFolder` - Create Test Management projects and folders
+- `createTestCase` - Add manual test cases to projects
+- `listTestCases` - List test cases with filters (priority, status, tags)
+- `createTestRun` - Create test runs for selected test cases
+- `listTestRuns` - List test runs with date/assignee filters
+- `updateTestRun` - Update test run status, tags, notes
+- `addTestResult` - Add execution results (passed/failed/blocked/skipped)
+- `createTestCasesFromFile` - Bulk create test cases from uploaded files
 
-**Accessibility Testing**
-- WCAG 2.0/2.1/2.2 compliance scanning
-- AI-powered fix suggestions
-- Local and production site scanning
+**Automate (Web Testing)**
+- `setupBrowserStackAutomateTests` - Integrate SDK and run web tests
+- `fetchAutomationScreenshots` - Get screenshots from test sessions
+- `getFailureLogs` - Retrieve error logs for failed tests
 
-**AI-Powered Features**
-- Generate test cases from requirements documents
-- Auto-heal flaky test selectors
-- Convert manual tests to automation
-- Intelligent failure analysis and debugging
+**App Automate (Mobile Testing)**
+- `takeAppScreenshot` - Launch app and capture screenshot
+- `runAppTestsOnBrowserStack` - Run automated mobile tests on real devices
+
+**Live Testing**
+- `runBrowserLiveSession` - Start manual browser testing session
+- `runAppLiveSession` - Start manual app testing session on real devices
+
+**Accessibility**
+- `startAccessibilityScan` - Scan webpages for WCAG violations
+- `accessibilityExpert` - Get WCAG guidelines and best practices
+
+**AI Agents**
+- `uploadProductRequirementFile` - Upload PRD/PDF for test case generation
+- `fetchSelfHealedSelectors` - Get AI-healed selectors for flaky tests
+- `createLCASteps` - Convert manual test cases to low-code automation
+
+## Use Cases
+
+### 1. Generate Test Cases from Requirements
+
+**What**: Upload PRD documents and automatically generate comprehensive test cases with AI.
+
+**Agent**: `test-case-generator` (invoke with `@test-case-generator`)
+
+**Tools**: `uploadProductRequirementFile`, `createTestCasesFromFile`
+
+**Examples**:
+```
+@test-case-generator
+[Attach your PRD file]
+"Generate test cases for Test Management project PR-12345"
+
+@test-case-generator
+"Upload PRD from /Users/xyz/login-flow.pdf and generate test cases for project PR-54321"
+```
+
+**What you get**:
+- Test cases with title, steps, expected results, priority, and tags
+- Automatically added to your Test Management project (PR-xxxxx format)
+- Coverage of happy paths, error scenarios, edge cases, security
+
+---
+
+### 2. Manage Test Cases and Runs
+
+**What**: Organize test cases, create test runs, and track results.
+
+**Tools**: `createProjectOrFolder`, `createTestCase`, `listTestCases`, `createTestRun`, `addTestResult`
+
+**Examples**:
+```
+"Create a Test Management project called 'Payment Flow'"
+"Add a test case: Verify credit card payment with invalid CVV"
+"List all high priority test cases in Payment Flow"
+"Create a test run for smoke tests"
+"Mark test case TC-123 as passed"
+```
+
+---
+
+### 3. Manual Testing on Real Devices
+
+**What**: Test your website or app on real browsers and devices on BrowserStack
+
+**Tools**: `runBrowserLiveSession`, `runAppLiveSession`
+
+**Examples**:
+```
+"Open localhost:3000 on Safari 17"
+"Test my website on Chrome 120 Windows 11"
+"Open my app on iPhone 15 Pro Max. App: /path/to/app.ipa"
+"Take a screenshot of the current page"
+```
+
+---
+
+### 4. Run Automated Web Tests
+
+**What**: Execute Selenium, Playwright, or Cypress tests across multiple browsers on BrowserStack infrastructure.
+
+**Skill**: `run-web-tests-on-browserstack`
+
+**Tools**: `setupBrowserStackAutomateTests`, `fetchAutomationScreenshots`, `getFailureLogs`
+
+**Examples**:
+```
+"Run my Playwright tests on Chrome and Firefox using BrowserStack"
+"Setup my Selenium tests for BrowserStack and run on Safari 17"
+"Run my Cypress tests on Chrome 120 and Edge. Enable Percy."
+"Get screenshots from Automate session abc123xyz"
+"Get error logs from session ID 21a864032a7459f1e7634222249b316759d6827f"
+```
+
+---
+
+### 5. Run Automated Mobile App Tests
+
+**What**: Execute Appium, XCUITest, or Espresso tests on real iOS and Android devices.
+
+**Skill**: `run-mobile-tests-on-browserstack`
+
+**Tools**: `takeAppScreenshot`, `runAppTestsOnBrowserStack`, `getFailureLogs`
+
+**Examples**:
+```
+"Take a screenshot of my app on iPhone 15 Pro. App: /apps/myapp.ipa"
+"Run Espresso tests on Galaxy S21 and Pixel 6. App: /apps/app.apk, Tests: /tests/suite.zip"
+"Run XCUITest tests on iPhone 14 and 15 Pro with iOS 17. Tests: /tests/login.zip"
+"Get error logs from App Automate session abc123, Build ID xyz789"
+```
+
+---
+
+### 6. Auto-Heal Flaky Tests
+
+**What**: Fix test failures caused by changed selectors using AI self-healing.
+
+**Tools**: `fetchSelfHealedSelectors`
+
+**Examples**:
+```
+"My login test keeps failing because the button selector changed. Fix it with self-healing."
+"Get self-healed selectors for session session_abc123"
+```
+
+---
+
+### 7. Scan and Fix Accessibility Issues
+
+**What**: Identify WCAG violations on your webpage and get specific code fixes.
+
+**Skill**: `scan-and-fix-accessibility`
+
+**Tools**: `startAccessibilityScan`, `accessibilityExpert`
+
+**Examples**:
+```
+"Run accessibility scan for 'localhost:3000'"
+"Scan accessibility issues on www.mysite.com/checkout"
+"What WCAG guidelines apply to form field error messages?"
+"Re-scan localhost:3000 to verify fixes"
+```
+
+**What you get**:
+- Detailed violation report (Critical/High/Medium severity)
+- Specific code fixes for each issue (missing labels, color contrast, keyboard navigation)
+- WCAG compliance verification after fixes
 
 ## Troubleshooting
 
-**Plugin not responding?**
-- Verify your credentials are set correctly: `echo $BROWSERSTACK_USERNAME`
-- Restart Cursor after adding credentials
+**Authentication Issues**
+- Verify credentials in [Account Settings](https://www.browserstack.com/accounts/profile/details)
+- Check MCP configuration in Cursor settings
+- Ensure no extra spaces in username/access key
+
+**Plugin Not Responding**
+- Restart Cursor after configuration changes
 - Check Node.js version: `node --version` (need 18+)
+- View MCP server logs in Cursor
 
-**"Authentication failed" error?**
-- Double-check your username and access key from [Account Settings](https://www.browserstack.com/accounts/profile/details)
-- Make sure there are no extra spaces in your environment variables
+**Need Help?**
+- [GitHub Issues](https://github.com/browserstack/mcp-server/issues) - Report bugs or issues
+- [BrowserStack Support](https://www.browserstack.com/contact) - Platform questions
+- [Documentation](https://www.browserstack.com/docs) - Detailed guides
 
-**Can't access localhost?**
-- This works automatically! Just use `localhost:PORT` in your prompts
-- BrowserStack creates a secure tunnel to your local machine
+---
 
-**Behind a corporate firewall?**
-- Contact your IT team to allowlist BrowserStack domains
-- Or ask us about enterprise firewall configurations
+## How to Sign Up for BrowserStack?
 
-## Get Help
+1. **Create a free account** at [browserstack.com/users/sign_up](https://www.browserstack.com/users/sign_up)
+   - No credit card required
+   - Instant access to start testing
 
-- **Issues with the plugin**: [Open a GitHub issue](https://github.com/browserstack/mcp-server/issues)
-- **BrowserStack platform questions**: [Contact Support](https://www.browserstack.com/contact)
-- **Documentation**: [BrowserStack Docs](https://www.browserstack.com/docs)
-
-## Pricing
-
-- **Free Trial**: Test drive with limited minutes
-- **Open Source**: Free for qualifying projects ([apply here](https://www.browserstack.com/open-source))
-- **Paid Plans**: From $29/month for individuals, custom enterprise pricing
-
-See [pricing details](https://www.browserstack.com/pricing)
+2. **Get your credentials** from [Account Settings](https://www.browserstack.com/accounts/profile/details) to configure the plugin
