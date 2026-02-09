@@ -1,6 +1,6 @@
 ---
 name: automate-test-setup
-description: Set up and run automated web tests on BrowserStack Automate. Use for cross-browser testing, CI/CD integration, or running existing Selenium/Playwright/Cypress tests on real browsers.
+description: Set up and run automated web tests on BrowserStack Automate using setupBrowserStackAutomateTests MCP tool. Use for cross-browser testing with Selenium/Playwright/Cypress.
 ---
 
 # Automate Test Setup Workflow
@@ -12,104 +12,88 @@ description: Set up and run automated web tests on BrowserStack Automate. Use fo
 - Testing on real desktop browsers (Chrome, Firefox, Safari, Edge)
 - Debugging cross-browser compatibility issues
 
+## MCP Tools Used
+
+- `setupBrowserStackAutomateTests` - Integrate BrowserStack SDK and run tests
+- `fetchAutomationScreenshots` - Get screenshots from test sessions
+- `getFailureLogs` - Retrieve error logs for failed tests
+
 ## Steps
 
-### 1. Get Available Browsers
+### 1. Setup and Run Tests
 
-List all browsers and OS combinations:
+Use the `setupBrowserStackAutomateTests` MCP tool:
+
 ```
-"Show me available browsers on BrowserStack Automate"
-```
-
-### 2. Configure Test
-
-Choose your test framework and configuration:
-
-**For Selenium (Java/Python/Node.js):**
-```
-"Help me set up Selenium tests for BrowserStack Automate"
+"Run my Selenium tests on Chrome and Firefox using BrowserStack"
+"Setup my Playwright tests for BrowserStack and run on Safari 17"
+"Run my Cypress tests on Chrome 120 (Windows 11) and Edge (Windows 11)"
 ```
 
-**For Playwright:**
+**What the tool does:**
+- Integrates BrowserStack SDK into your test framework
+- Configures browser capabilities automatically
+- Runs tests on BrowserStack infrastructure
+- Optionally enables Percy for visual testing
+
+**Example:**
 ```
-"Configure Playwright to run on BrowserStack"
+"Run my Selenium-JUnit5 tests written in Java on Chrome and Firefox. Enable Percy for visual testing."
 ```
 
-**For Cypress:**
+### 2. Get Screenshots
+
+Fetch screenshots from test sessions using `fetchAutomationScreenshots`:
+
 ```
-"Set up Cypress for BrowserStack Automate"
+"Get screenshots from Automate session ID abc123xyz"
+"Show me screenshots from my last test run"
 ```
 
-### 3. Set Browser Capabilities
+### 3. Debug Failures
 
-Specify which browsers to test on:
-```
-"I want to test on Chrome 120 (Windows 11) and Safari 17 (macOS Sonoma)"
-```
+Retrieve error logs using `getFailureLogs`:
 
-The agent will help configure capabilities like:
-```json
-{
-  "browserName": "Chrome",
-  "browserVersion": "120",
-  "os": "Windows",
-  "osVersion": "11"
-}
 ```
-
-### 4. Run Tests
-
-Execute your test suite:
-```
-"Run my tests on BrowserStack Automate"
-```
-
-Or run specific tests:
-```
-"Run login.test.js on Chrome and Firefox"
-```
-
-### 5. View Results
-
-Check test execution results:
-```
-"Show me the latest Automate test results"
-"Get the session recording for the last test run"
+"Get error logs from session ID 21a864032a7459f1e7634222249b316759d6827f"
+"Show me failure logs from my last Automate test"
 ```
 
 ## Common Scenarios
 
-**Parallel Testing:**
+**Setup Different Test Frameworks:**
 ```
-"Run tests in parallel across 5 browsers"
-```
-
-**Debugging Failed Tests:**
-```
-"Show me console logs and network logs for the failed test"
-"Get screenshots from the test session"
+"Setup my Playwright tests for BrowserStack Automate"
+"Run my Selenium WebDriver tests on Chrome, Firefox, and Safari"
+"Configure my Cypress tests to run on BrowserStack"
 ```
 
-**Local Testing:**
+**Enable Visual Testing:**
 ```
-"Set up BrowserStack Local for testing localhost"
+"Run my tests on BrowserStack with Percy enabled for visual regression testing"
 ```
 
-## Example
+**Debug Failed Tests:**
+```
+"Get screenshots and error logs from session abc123"
+"Show me what went wrong in my last Automate test run"
+```
 
-**User**: "I need to test my checkout flow on Chrome, Firefox, and Safari"
+## Example Workflow
 
-**Workflow**:
-1. Get browsers: `"Show available browsers on Automate"`
-2. Configure: `"Set up Selenium tests for Chrome 120, Firefox 122, Safari 17"`
-3. Run: `"Run checkout.test.js on all three browsers"`
-4. Results: `"Show me test results and any failures"`
-5. Debug: If failures → `"Get screenshots and logs for failed tests"`
+**User**: "I need to run my Playwright tests on Chrome, Firefox, and Safari"
+
+**Steps**:
+1. Setup: `"Setup my Playwright tests for BrowserStack and run on Chrome 120, Firefox 122, Safari 17"`
+2. Tool executes: `setupBrowserStackAutomateTests` configures and runs tests
+3. View results from BrowserStack dashboard or test output
+4. If failures: `"Get error logs from the failed session"`
+5. Debug: `"Show me screenshots from session XYZ"`
 
 ## Quick Tips
 
-- Use parallel testing to speed up execution
-- Enable video recording for debugging
-- Set up BrowserStack Local for testing internal environments
-- Use tags to organize test runs
-- Check the Automate dashboard for detailed reports
+- Specify test framework (Selenium/Playwright/Cypress) in your prompt
+- Include browser names and versions for precise targeting
+- Use Percy integration for visual regression testing
+- Session IDs are returned after test runs for debugging
+- Screenshots and logs help diagnose cross-browser issues
