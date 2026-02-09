@@ -25,8 +25,8 @@ Access BrowserStack's complete testing platform directly from Cursor using natur
          "command": "npx",
          "args": ["-y", "@browserstack/mcp-server@latest"],
          "env": {
-           "BROWSERSTACK_USERNAME": "your_username",
-           "BROWSERSTACK_ACCESS_KEY": "your_access_key"
+           "BROWSERSTACK_USERNAME": "${BROWSERSTACK_USERNAME}",
+           "BROWSERSTACK_ACCESS_KEY": "${BROWSERSTACK_ACCESS_KEY}"
          }
        }
      }
@@ -235,8 +235,10 @@ Access BrowserStack's complete testing platform directly from Cursor using natur
 
 ---
 
-## Pricing
+## How to Sign Up for BrowserStack?
 
-- **Free Trial** - Get started with limited minutes ([sign up](https://www.browserstack.com/users/sign_up))
-- **Open Source** - Free access for qualifying projects ([apply](https://www.browserstack.com/open-source))
-- **Paid Plans** - From $29/month ([view pricing](https://www.browserstack.com/pricing))
+1. **Create a free account** at [browserstack.com/users/sign_up](https://www.browserstack.com/users/sign_up)
+   - No credit card required
+   - Instant access to start testing
+
+2. **Get your credentials** from [Account Settings](https://www.browserstack.com/accounts/profile/details) to configure the plugin
