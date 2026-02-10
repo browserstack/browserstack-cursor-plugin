@@ -1,0 +1,24 @@
+{
+  "name": "browserstack",
+  "version": "1.0.0",
+  "description": "BrowserStack integration for Cursor. Test websites and mobile apps on real devices, run automated tests, debug failures, and manage test cases—all using natural language.",
+  "author": {
+    "name": "BrowserStack",
+    "email": "support@browserstack.com"
+  },
+  "homepage": "https://www.browserstack.com",
+  "repository": "https://github.com/browserstack/browserstack-cursor-plugin",
+  "keywords": [
+    "browserstack",
+    "testing",
+    "automation",
+    "accessibility",
+    "quality-assurance",
+    "playwright",
+    "selenium",
+    "manual-testing",
+    "app-testing",
+    "real-devices"
+  ],
+  "logo": "assets/logo.svg"
+}
