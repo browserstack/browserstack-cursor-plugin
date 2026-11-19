@@ -14,7 +14,7 @@ description: Scan webpage for accessibility issues using startAccessibilityScan 
 ## MCP Tools Used
 
 - `startAccessibilityScan` (Tool #17) - Scan webpage for accessibility issues
-- `accessibilityExpert` (Tool #16) - Get WCAG guidelines and best practices
+- `askBrowserStackAI` (product `a11y`) - Get WCAG guidelines and best practices
 
 ## Steps
 
@@ -42,7 +42,7 @@ Review the scan results and categorize issues:
 
 ### 3. Get WCAG Guidelines (Optional)
 
-Use `accessibilityExpert` for specific guidance:
+Use `askBrowserStackAI` with `product: "a11y"` for specific guidance:
 
 ```
 "What WCAG guidelines apply to form field error messages on mobile web?"
@@ -53,6 +53,7 @@ Use `accessibilityExpert` for specific guidance:
 - Provides WCAG 2.0/2.1/2.2 compliance guidance
 - Answers questions about accessibility best practices
 - Covers mobile and web usability standards
+- If it says BrowserStack AI is not enabled for the account, answer from WCAG knowledge directly
 
 ### 4. Fix Issues in Code
 
