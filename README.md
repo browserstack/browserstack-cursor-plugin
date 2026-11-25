@@ -98,7 +98,6 @@ Access BrowserStack's complete testing platform directly from Cursor using natur
 
 - `startAccessibilityScan` - Scan webpages for WCAG violations
 - `fetchAccessibilityIssues` - Fetch paginated issues from a completed scan
-- `accessibilityExpert` - Get WCAG guidelines and best practices
 - `createAccessibilityAuthConfig` / `getAccessibilityAuthConfig` - Configure authenticated scans
 
 **Percy (Visual Testing)**
@@ -111,7 +110,7 @@ Access BrowserStack's complete testing platform directly from Cursor using natur
 
 **AI Agents**
 
-- `askBrowserStackAI` - Run a multi-step Test Management or Test Reporting & Analytics workflow from a single natural-language instruction
+- `askBrowserStackAI` - Run a multi-step Test Management, Test Reporting & Analytics or Accessibility workflow from a single natural-language instruction, including WCAG and accessibility best-practice questions
 - `fetchRCA` - Test failure analysis: insights and suggested fixes for failed tests
 - `fetchSelfHealedSelectors` - Get AI-healed selectors for flaky tests
 - `prepareSelfHealingPlan` - Bundle locator pairs with test source for your LLM to apply
@@ -269,7 +268,7 @@ Access BrowserStack's complete testing platform directly from Cursor using natur
 
 **Skill**: `scan-and-fix-accessibility`
 
-**Tools**: `startAccessibilityScan`, `fetchAccessibilityIssues`, `accessibilityExpert`, `createAccessibilityAuthConfig`
+**Tools**: `startAccessibilityScan`, `fetchAccessibilityIssues`, `askBrowserStackAI`, `createAccessibilityAuthConfig`
 
 **Examples**:
 
